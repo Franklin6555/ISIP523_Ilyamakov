@@ -10,7 +10,7 @@ namespace ISIP523_Ilyamakov
     {
         static void Main(string[] args)
         {
-
+            Console.WriteLine("Салам, мир!");
         }
     }
 }
