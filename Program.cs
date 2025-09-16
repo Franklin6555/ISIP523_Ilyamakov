@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Services;
@@ -15,7 +16,6 @@ namespace ISIP523_Ilyamakov
     {
         static void Main(string[] args)
         {
-
             bool in_menu = true;
             while (in_menu)
             {
@@ -27,6 +27,13 @@ namespace ISIP523_Ilyamakov
                 Console.WriteLine("5. Поиск по названию");
                 Console.WriteLine("0. Выход");
                 int choice = Convert.ToInt32(Console.ReadLine());
+                int amt = 1;
+                string[] names = new string[amt];
+                double[] prices = new double[amt];
+                double mean = 0;
+                double max = 0;
+                double min = 0;
+                double sum = 0;
                 switch (choice)
                 {
                     case 0:
@@ -34,9 +41,7 @@ namespace ISIP523_Ilyamakov
                         break;
                     case 1:
                         Console.WriteLine("Введите кол-во операций, которые будут записаны (от 2 до 40):");
-                        int amt = Convert.ToInt32(Console.ReadLine());
-                        string[] names = new string[amt];
-                        double[] prices = new double[amt];
+                        amt = Convert.ToInt32(Console.ReadLine());
                         for (int i = 0; i < amt; i++)
                         {
                             Console.WriteLine("Введите название товара/услуги и цену (в формате название;цена)");
@@ -47,7 +52,17 @@ namespace ISIP523_Ilyamakov
                         }
                         break;
                     case 2:
-                        
+                        foreach (double i in prices)
+                        {
+                            sum += i;
+                            if (i > max) max = i;
+                            if (i < min) min = i;
+                        }
+                        mean = sum / amt;
+                        Console.WriteLine("Среднее: " + mean);
+                        Console.WriteLine("Максимальное: " + max);
+                        Console.WriteLine("Минимальное: " + max);
+                        Console.WriteLine("Сумма: " + sum);
                         break;
                     case 3:
                         //Sorted;
