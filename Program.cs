@@ -36,18 +36,18 @@ namespace ISIP523_Ilyamakov
                         Console.WriteLine("Введите кол-во операций, которые будут записаны (от 2 до 40):");
                         int amt = Convert.ToInt32(Console.ReadLine());
                         string[] names = new string[amt];
-                        int[] prices = new int[amt];
+                        double[] prices = new double[amt];
                         for (int i = 0; i < amt; i++)
                         {
                             Console.WriteLine("Введите название товара/услуги и цену (в формате название;цена)");
                             string input = Console.ReadLine();
                             string[] inputSplited = input.Split(new char[] { ';' });
                             names[i] = inputSplited[0];
-                            prices[i] = Convert.ToInt32(inputSplited[1]);
+                            prices[i] = Convert.ToDouble(inputSplited[1]);
                         }
                         break;
                     case 2:
-                        //GetStats();
+                        
                         break;
                     case 3:
                         //Sorted;
