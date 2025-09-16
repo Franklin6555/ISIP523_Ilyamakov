@@ -89,14 +89,20 @@ namespace ISIP523_Ilyamakov
                         Console.WriteLine("1. В доллары");
                         Console.WriteLine("2. В евро");
                         int cur = Convert.ToInt32(Console.ReadLine());
-                        for (int i = 1; i < amt; i++)
+                        for (int i = 0; i < amt; i++)
                         {
                             if (cur == 1) Console.WriteLine(names[i] + ";" + prices[i] / 83);
                             if (cur == 2) Console.WriteLine(names[i] + ";" + prices[i] / 98);
                         }
                         break;
                     case 5:
-                        //Search();
+                        Console.WriteLine("Введи строку для поиска: ");
+                        string search = Console.ReadLine();
+                        Console.WriteLine("Результат: ");
+                        for (int i = 0; i < amt; i++)
+                        {
+                            if (names[i].Contains(search)) Console.WriteLine(names[i] + ";" + prices[i] + "руб.");
+                        }
                         break;
                 }
                     
