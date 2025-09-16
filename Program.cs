@@ -32,6 +32,7 @@ namespace ISIP523_Ilyamakov
             bool in_menu = true;
             while (in_menu)
             {
+                Console.WriteLine("------------------------------------");
                 Console.WriteLine("Выберите пункт меню:");
                 Console.WriteLine("1. Вывод данных");
                 Console.WriteLine("2. Статистика");
@@ -40,6 +41,7 @@ namespace ISIP523_Ilyamakov
                 Console.WriteLine("5. Поиск по названию");
                 Console.WriteLine("0. Выход");
                 int choice = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("------------------------------------");
                 double mean = 0;
                 double max = 0;
                 double min = 0;
@@ -52,7 +54,7 @@ namespace ISIP523_Ilyamakov
                     case 1:
                         for (int i = 0; i < amt; i++)
                         {
-                            Console.WriteLine(names[i] + ";" + prices[i]);
+                            Console.WriteLine(names[i] + ";" + prices[i] + "руб.");
                         }
                         break;
                     case 2:
@@ -83,7 +85,15 @@ namespace ISIP523_Ilyamakov
                         }
                         break;
                     case 4:
-                        //ConvertC();
+                        Console.WriteLine("Выберите валюту:");
+                        Console.WriteLine("1. В доллары");
+                        Console.WriteLine("2. В евро");
+                        int cur = Convert.ToInt32(Console.ReadLine());
+                        for (int i = 1; i < amt; i++)
+                        {
+                            if (cur == 1) Console.WriteLine(names[i] + ";" + prices[i] / 83);
+                            if (cur == 2) Console.WriteLine(names[i] + ";" + prices[i] / 98);
+                        }
                         break;
                     case 5:
                         //Search();
