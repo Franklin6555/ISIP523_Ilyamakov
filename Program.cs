@@ -69,7 +69,18 @@ namespace ISIP523_Ilyamakov
                         Console.WriteLine("Сумма: " + sum);
                         break;
                     case 3:
-                        
+                        for (int i = 1; i < amt; i++)
+                        {
+                            if (prices[i] > prices[i - 1])
+                            {
+                                double tmpPrice = prices[i];
+                                string tmpName = names[i];
+                                prices[i] = prices[i - 1];
+                                names[i] = names[i - 1];
+                                prices[i - 1] = tmpPrice;
+                                names[i - 1] = tmpName;
+                            }
+                        }
                         break;
                     case 4:
                         //ConvertC();
