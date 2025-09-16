@@ -16,20 +16,30 @@ namespace ISIP523_Ilyamakov
     {
         static void Main(string[] args)
         {
+            int amt = 1;
+            Console.WriteLine("Введите кол-во операций, которые будут записаны (от 2 до 40):");
+            amt = Convert.ToInt32(Console.ReadLine());
+            string[] names = new string[amt];
+            double[] prices = new double[amt];
+            for (int i = 0; i < amt; i++)
+            {
+                Console.WriteLine("Введите название товара/услуги и цену (в формате название;цена)");
+                string input = Console.ReadLine();
+                string[] inputSplited = input.Split(new char[] { ';' });
+                names[i] = inputSplited[0];
+                prices[i] = Convert.ToDouble(inputSplited[1]);
+            }
             bool in_menu = true;
             while (in_menu)
             {
                 Console.WriteLine("Выберите пункт меню:");
                 Console.WriteLine("1. Вывод данных");
                 Console.WriteLine("2. Статистика");
-                Console.WriteLine("3. Сортировка по цене");
+                Console.WriteLine("3. Сортировка по убыванию цены");
                 Console.WriteLine("4. Конвертация валюты");
                 Console.WriteLine("5. Поиск по названию");
                 Console.WriteLine("0. Выход");
                 int choice = Convert.ToInt32(Console.ReadLine());
-                int amt = 1;
-                string[] names = new string[amt];
-                double[] prices = new double[amt];
                 double mean = 0;
                 double max = 0;
                 double min = 0;
@@ -40,15 +50,9 @@ namespace ISIP523_Ilyamakov
                         in_menu = false; 
                         break;
                     case 1:
-                        Console.WriteLine("Введите кол-во операций, которые будут записаны (от 2 до 40):");
-                        amt = Convert.ToInt32(Console.ReadLine());
                         for (int i = 0; i < amt; i++)
                         {
-                            Console.WriteLine("Введите название товара/услуги и цену (в формате название;цена)");
-                            string input = Console.ReadLine();
-                            string[] inputSplited = input.Split(new char[] { ';' });
-                            names[i] = inputSplited[0];
-                            prices[i] = Convert.ToDouble(inputSplited[1]);
+                            Console.WriteLine(names[i] + ";" + prices[i]);
                         }
                         break;
                     case 2:
@@ -65,7 +69,7 @@ namespace ISIP523_Ilyamakov
                         Console.WriteLine("Сумма: " + sum);
                         break;
                     case 3:
-                        //Sorted;
+                        
                         break;
                     case 4:
                         //ConvertC();
