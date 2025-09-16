@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Services;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ISIP523_Ilyamakov
 {
@@ -30,7 +33,18 @@ namespace ISIP523_Ilyamakov
                         in_menu = false; 
                         break;
                     case 1:
-                        //Input();
+                        Console.WriteLine("Введите кол-во операций, которые будут записаны (от 2 до 40):");
+                        int amt = Convert.ToInt32(Console.ReadLine());
+                        string[] names = new string[amt];
+                        int[] prices = new int[amt];
+                        for (int i = 0; i < amt; i++)
+                        {
+                            Console.WriteLine("Введите название товара/услуги и цену (в формате название;цена)");
+                            string input = Console.ReadLine();
+                            string[] inputSplited = input.Split(new char[] { ';' });
+                            names[i] = inputSplited[0];
+                            prices[i] = Convert.ToInt32(inputSplited[1]);
+                        }
                         break;
                     case 2:
                         //GetStats();
