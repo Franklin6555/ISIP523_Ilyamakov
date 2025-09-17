@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Services;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -85,14 +86,11 @@ namespace ISIP523_Ilyamakov
                         }
                         break;
                     case 4:
-                        Console.WriteLine("Выберите валюту:");
-                        Console.WriteLine("1. В доллары");
-                        Console.WriteLine("2. В евро");
-                        int cur = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Введите курс валюты в рублях: ");
+                        double currency = Convert.ToDouble(Console.ReadLine());
                         for (int i = 0; i < amt; i++)
                         {
-                            if (cur == 1) Console.WriteLine(names[i] + ";" + prices[i] / 83);
-                            if (cur == 2) Console.WriteLine(names[i] + ";" + prices[i] / 98);
+                            Console.WriteLine(names[i] + ";" + prices[i] / currency);
                         }
                         break;
                     case 5:
@@ -105,9 +103,7 @@ namespace ISIP523_Ilyamakov
                         }
                         break;
                 }
-                    
             }
-
         }
     }
 }
