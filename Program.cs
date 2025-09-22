@@ -6,21 +6,29 @@ using System.Threading.Tasks;
 
 namespace ISIP523_Ilyamakov
 {
+    enum Category
+    {
+        Dairy = 1,
+        Canned,
+        Bakery
+    }
     class Product
     {
-        public static int ID;
+        public int ID;
         public string Name;
         public double Price;
         public int Quantity;
         public bool Have;
-        public Product(string name, double price, int quantity)
+        public Category Category;
+        public Product(int id, string name, double price, int quantity, Category category)
         {
-            ID += 1;
+            this.ID = id;
             this.Name = name;
             this.Price = price;
             this.Quantity = quantity;
-            if (quantity > 0) Have = true;
+            if (quantity > 0) this.Have = true;
             else Have = false;
+            this.Category = category;
         }
         public void PrintInfo()
         {
@@ -34,7 +42,7 @@ namespace ISIP523_Ilyamakov
     {
         static void Main(string[] args)
         {
-
+            List<Product> products = new List<Product>();
         }
     }
 }
