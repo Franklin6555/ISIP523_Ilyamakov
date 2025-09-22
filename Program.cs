@@ -32,9 +32,11 @@ namespace ISIP523_Ilyamakov
         }
         public void PrintInfo()
         {
+            Console.WriteLine("------------------------------------");
             Console.WriteLine($" ID: {ID} \n Имя: {Name} \n Цена: {Price}");
-            if (Have) Console.WriteLine("Quantity: ", Quantity);
-            else Console.WriteLine("Do not have");
+            if (Have) Console.WriteLine($" Quantity: {Quantity}");
+            else Console.WriteLine(" Do not have");
+            Console.WriteLine("------------------------------------");
 
         }
     }
@@ -56,19 +58,19 @@ namespace ISIP523_Ilyamakov
                 Console.WriteLine("4. Продать товар");
                 Console.WriteLine("5. Поиск товаров ");
                 Console.WriteLine("0. Выход");
+                Console.WriteLine("------------------------------------");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("------------------------------------");
                 switch (choice)
                 {
                     case 0: in_menu = false; break;
                     case 1: AddProduct(); break;
-
-
+                    case 5: SearchProduct(); break;
                 }
             }
         }
 
-    static void AddProduct()
+        static void AddProduct()
         {
             GID++;
             Console.WriteLine("Название:");
@@ -81,6 +83,16 @@ namespace ISIP523_Ilyamakov
             int cn = Convert.ToInt32(Console.ReadLine());
             Category c = (Category)cn;
             products.Add(new Product(GID, n, p, q, c));
+        }
+        static void SearchProduct()
+        {
+            Console.WriteLine("Введи строку для поиска: ");
+            string search = Console.ReadLine();
+            Console.WriteLine("Результат: ");
+            for (int i = 0; i < products.Count; i++)
+            {
+                if (products[i].Name.Contains(search)) products[i].PrintInfo();
+            }
         }
     }
 }
