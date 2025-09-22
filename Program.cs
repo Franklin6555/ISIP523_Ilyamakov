@@ -40,9 +40,47 @@ namespace ISIP523_Ilyamakov
     }
     internal class Program
     {
+        static List<Product> products = new List<Product>();
+        static int GID = 0;
         static void Main(string[] args)
         {
-            List<Product> products = new List<Product>();
+            bool in_menu = true;
+            
+            while (in_menu)
+            {
+                Console.WriteLine("------------------------------------");
+                Console.WriteLine("Выберите пункт меню:");
+                Console.WriteLine("1. Добавить товар");
+                Console.WriteLine("2. Удалить товар");
+                Console.WriteLine("3. Заказать поставку товара");
+                Console.WriteLine("4. Продать товар");
+                Console.WriteLine("5. Поиск товаров ");
+                Console.WriteLine("0. Выход");
+                int choice = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("------------------------------------");
+                switch (choice)
+                {
+                    case 0: in_menu = false; break;
+                    case 1: AddProduct(); break;
+
+
+                }
+            }
+        }
+
+    static void AddProduct()
+        {
+            GID++;
+            Console.WriteLine("Название:");
+            string n = Console.ReadLine();
+            Console.WriteLine("Цена:");
+            double p = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Кол-во:");
+            int q = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Категория (1 - Молочные, 2 - Консервированые, 3 - Хлебобулочные");
+            int cn = Convert.ToInt32(Console.ReadLine());
+            Category c = (Category)cn;
+            products.Add(new Product(GID, n, p, q, c));
         }
     }
 }
