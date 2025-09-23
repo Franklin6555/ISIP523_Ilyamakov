@@ -76,6 +76,7 @@ namespace ISIP523_Ilyamakov
                     case 1: AddProduct(); break;
                     case 2: DelProduct(); break;
                     case 3: OrderProduct(); break;
+                    case 4: SellProduct(); break;
                     case 5: SearchProduct(); break;
                 }
             }
@@ -113,15 +114,40 @@ namespace ISIP523_Ilyamakov
             int order = products.Find(n => n.id == orderId).quantity += orderQuan;
             Console.WriteLine($"Теперь на складе {order}");
         }
+        static void SellProduct()
+        {
+            Console.WriteLine("Введите ID товара");
+            int sellId = Convert.ToInt32(Console.ReadLine());
+            int sell = products.Find(n => n.id == sellId).quantity;
+            Console.WriteLine("Введите кол-во, которое нужно продать");
+            int sellQuan = Convert.ToInt32(Console.ReadLine());
+            if (sell - sellQuan < 0) Console.WriteLine("Недостаточно товара на складе");
+            else sell = products.Find(n => n.id == sellId).quantity -= sellQuan;
+            Console.WriteLine($"Теперь на складе {sell}");
+        }
         static void SearchProduct()
         {
-            Console.WriteLine("Введи строку для поиска: ");
-            string search = Console.ReadLine();
-            Console.WriteLine("Результат: ");
-            for (int i = 0; i < products.Count; i++)
+            Console.WriteLine("Выберете параметр поиска (1 - id; 2 - название; 3 - категория");
+            int searchType = Convert.ToInt32(Console.ReadLine());
+            switch (searchType)
             {
-                if (products[i].name.Contains(search)) products[i].PrintInfo();
+                case 1:
+                    Console.WriteLine("Введи id для поиска: ");
+                    int idSearch = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Результат: ");
+                    Console.WriteLine(products.Find(n => n.id == idSearch));
+                    break;
+                case 2:
+                    Console.WriteLine("Введи строку для поиска: ");
+                    string nameSearch = Console.ReadLine();
+                    Console.WriteLine("Результат: ");
+                    for (int i = 0; i < products.Count; i++)
+                    {
+                        if (products[i].name.Contains(nameSearch)) products[i].PrintInfo();
+                    }
+                    break;
             }
+            
         }
     }
 }
