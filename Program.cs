@@ -9,9 +9,10 @@ namespace ISIP523_Ilyamakov
 {
     enum Categories
     {
-        Dairy = 1,
-        Canned,
-        Bakery
+        Молочка = 1,
+        Консервы,
+        Хлебобулочное,
+        Другое
     }
     class Product
     {
@@ -21,7 +22,7 @@ namespace ISIP523_Ilyamakov
         public int quantity;
         public bool have;
         public Categories category;
-        public Product(int id, string name, double price, int quantity, Categories category)
+        public Product(int id, string name, double price, int quantity, int categoryNum)
         {
             this.id = id;
             this.name = name;
@@ -29,14 +30,20 @@ namespace ISIP523_Ilyamakov
             this.quantity = quantity;
             if (quantity > 0) this.have = true;
             else have = false;
-            this.category = category;
+
+            if (categoryNum < 5) this.category = (Categories)categoryNum;
+            else
+            {
+                Console.WriteLine("Неизветсная категория \nУстановлена категория 'Другое'");
+                this.category = (Categories)4;
+            }
         }
         public void PrintInfo()
         {
             Console.WriteLine("------------------------------------");
             Console.WriteLine($"ID: {id} \nИмя: {name} \nЦена: {price}");
             if (have) Console.WriteLine($"Кол-во: {quantity}");
-            else Console.WriteLine("Do not have");
+            else Console.WriteLine("Нет на складе");
             Console.WriteLine($"Категория: {category}");
             Console.WriteLine("------------------------------------");
 
@@ -67,6 +74,7 @@ namespace ISIP523_Ilyamakov
                 {
                     case 0: in_menu = false; break;
                     case 1: AddProduct(); break;
+                    case 2: DelProduct(); break;
                     case 5: SearchProduct(); break;
                 }
             }
@@ -84,10 +92,16 @@ namespace ISIP523_Ilyamakov
                 double p = Convert.ToDouble(Console.ReadLine());
                 Console.WriteLine("Кол-во:");
                 int q = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("Категория (1 - Молочные, 2 - Консервированые, 3 - Хлебобулочные");
-                int cn = Convert.ToInt32(Console.ReadLine());
-                products.Add(new Product(gid, nm, p, q, (Categories)cn));
+                Console.WriteLine("Категория (1 - Молочные, 2 - Консервированые, 3 - Хлебобулочные, 4 - другое");
+                int c = Convert.ToInt32(Console.ReadLine());
+                products.Add(new Product(gid, nm, p, q, c));
             }
+        }
+        static void DelProduct()
+        {
+            Console.WriteLine("Введите ID товара который необходимо удалить");
+            int delId = Convert.ToInt32(Console.ReadLine());
+            products.RemoveAll(n => n.id == delId);
         }
         static void SearchProduct()
         {
