@@ -75,6 +75,7 @@ namespace ISIP523_Ilyamakov
                     case 0: in_menu = false; break;
                     case 1: AddProduct(); break;
                     case 2: DelProduct(); break;
+                    case 3: OrderProduct(); break;
                     case 5: SearchProduct(); break;
                 }
             }
@@ -102,6 +103,15 @@ namespace ISIP523_Ilyamakov
             Console.WriteLine("Введите ID товара который необходимо удалить");
             int delId = Convert.ToInt32(Console.ReadLine());
             products.RemoveAll(n => n.id == delId);
+        }
+        static void OrderProduct()
+        {
+            Console.WriteLine("Введите ID товара");
+            int orderId = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите кол-во, которое нужно заказать");
+            int orderQuan = Convert.ToInt32(Console.ReadLine());
+            int order = products.Find(n => n.id == orderId).quantity += orderQuan;
+            Console.WriteLine($"Теперь на складе {order}");
         }
         static void SearchProduct()
         {
