@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ISIP523_Ilyamakov
 {
-    enum Category
+    enum Categories
     {
         Dairy = 1,
         Canned,
@@ -15,28 +15,29 @@ namespace ISIP523_Ilyamakov
     }
     class Product
     {
-        public int ID;
-        public string Name;
-        public double Price;
-        public int Quantity;
-        public bool Have;
-        public Category Category;
-        public Product(int id, string name, double price, int quantity, Category category)
+        public int id;
+        public string name;
+        public double price;
+        public int quantity;
+        public bool have;
+        public Categories category;
+        public Product(int id, string name, double price, int quantity, Categories category)
         {
-            this.ID = id;
-            this.Name = name;
-            this.Price = price;
-            this.Quantity = quantity;
-            if (quantity > 0) this.Have = true;
-            else Have = false;
-            this.Category = category;
+            this.id = id;
+            this.name = name;
+            this.price = price;
+            this.quantity = quantity;
+            if (quantity > 0) this.have = true;
+            else have = false;
+            this.category = category;
         }
         public void PrintInfo()
         {
             Console.WriteLine("------------------------------------");
-            Console.WriteLine($" ID: {ID} \n Имя: {Name} \n Цена: {Price}");
-            if (Have) Console.WriteLine($" Quantity: {Quantity}");
-            else Console.WriteLine(" Do not have");
+            Console.WriteLine($"ID: {id} \nИмя: {name} \nЦена: {price}");
+            if (have) Console.WriteLine($"Кол-во: {quantity}");
+            else Console.WriteLine("Do not have");
+            Console.WriteLine($"Категория: {category}");
             Console.WriteLine("------------------------------------");
 
         }
@@ -44,7 +45,7 @@ namespace ISIP523_Ilyamakov
     internal class Program
     {
         static List<Product> products = new List<Product>();
-        static int GID = 0;
+        static int gid = 1;
         static void Main(string[] args)
         {
             bool in_menu = true;
@@ -75,9 +76,8 @@ namespace ISIP523_Ilyamakov
         {
             Console.WriteLine("Ведите кол-во товаров:");
             int n = Convert.ToInt32(Console.ReadLine());
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++, gid++)
             {
-                GID++;
                 Console.WriteLine("Название:");
                 string nm = Console.ReadLine();
                 Console.WriteLine("Цена:");
@@ -86,8 +86,7 @@ namespace ISIP523_Ilyamakov
                 int q = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("Категория (1 - Молочные, 2 - Консервированые, 3 - Хлебобулочные");
                 int cn = Convert.ToInt32(Console.ReadLine());
-                Category c = (Category)cn;
-                products.Add(new Product(GID, nm, p, q, c));
+                products.Add(new Product(gid, nm, p, q, (Categories)cn));
             }
         }
         static void SearchProduct()
@@ -97,7 +96,7 @@ namespace ISIP523_Ilyamakov
             Console.WriteLine("Результат: ");
             for (int i = 0; i < products.Count; i++)
             {
-                if (products[i].Name.Contains(search)) products[i].PrintInfo();
+                if (products[i].name.Contains(search)) products[i].PrintInfo();
             }
         }
     }
