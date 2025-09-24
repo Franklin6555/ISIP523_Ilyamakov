@@ -27,7 +27,7 @@ namespace ISIP523_Ilyamakov
             this.id = id;
             if (name == null)
             {
-                Console.WriteLine($"Имя не может быть пустым \n Назначено имя 'Товар {id}'");
+                Console.WriteLine($"Имя не может быть пустым \nНазначено имя 'Товар {id}'");
                 this.name = "Товар " + Convert.ToString(id);
             }
             this.name = name;
@@ -41,7 +41,7 @@ namespace ISIP523_Ilyamakov
             
             if (quantity < 0)
             {
-                Console.WriteLine("Кол-во не можеет быть отрийательной \n Назначено кол-во 0");
+                Console.WriteLine("Кол-во не можеет быть отрийательной \nНазначено кол-во 0");
                 this.quantity = 0;
             }
             else this.quantity = quantity;
@@ -104,6 +104,7 @@ namespace ISIP523_Ilyamakov
         {
             Console.WriteLine("Ведите кол-во товаров:");
             int n = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("------------------------------------");
             for (int i = 0; i < n; i++, gid++)
             {
                 Console.WriteLine("Название:");
@@ -116,6 +117,7 @@ namespace ISIP523_Ilyamakov
                 Console.WriteLine("Категория (1 - Молочные, 2 - Консервированые, 3 - Хлебобулочные, 4 - другое)");
                 int c = Convert.ToInt32(Console.ReadLine());
                 products.Add(new Product(gid, nm, p, q, c));
+                Console.WriteLine("------------------------------------");
             }
         }
         static void DelProduct()
