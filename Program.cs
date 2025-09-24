@@ -130,25 +130,48 @@ namespace ISIP523_Ilyamakov
         {
             Console.WriteLine("Введите ID товара");
             int orderId = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Введите кол-во, которое нужно заказать");
-            int orderQuan = Convert.ToInt32(Console.ReadLine());
-            int order = products.Find(n => n.id == orderId).quantity += orderQuan;
-            Console.WriteLine($"Теперь на складе {order}");
-            if (order == 0) products.Find(n => n.id == orderId).have = true;
+            try
+            {
+                int order = products.Find(n => n.id == orderId).quantity;
+            }
+            catch
+            {
+                Console.WriteLine("Нет товара с таким ID");
+            }
+            finally
+            {
+                int order = products.Find(n => n.id == orderId).quantity;
+                Console.WriteLine("Введите кол-во, которое нужно заказать");
+                int orderQuan = Convert.ToInt32(Console.ReadLine());
+                order = products.Find(n => n.id == orderId).quantity += orderQuan;
+                Console.WriteLine($"Теперь на складе {order}");
+                if (order != 0) products.Find(n => n.id == orderId).have = true;
+            }
         }
         static void SellProduct()
         {
             Console.WriteLine("Введите ID товара");
             int sellId = Convert.ToInt32(Console.ReadLine());
-            int sell = products.Find(n => n.id == sellId).quantity;
-            Console.WriteLine("Введите кол-во, которое нужно продать");
-            int sellQuan = Convert.ToInt32(Console.ReadLine());
-            if (sell - sellQuan < 0) Console.WriteLine("Недостаточно товара на складе");
-            else
+            try
             {
-                sell = products.Find(n => n.id == sellId).quantity -= sellQuan;
-                Console.WriteLine($"Теперь на складе {sell}");
-                if (sell == 0) products.Find(n => n.id == sellId).have = false;
+                int sell = products.Find(n => n.id == sellId).quantity;
+            }
+            catch
+            {
+                Console.WriteLine("Нет товара с таким ID");
+            }
+            finally
+            {
+                int sell = products.Find(n => n.id == sellId).quantity;
+                Console.WriteLine("Введите кол-во, которое нужно продать");
+                int sellQuan = Convert.ToInt32(Console.ReadLine());
+                if (sell - sellQuan < 0) Console.WriteLine("Недостаточно товара на складе");
+                else
+                {
+                    sell = products.Find(n => n.id == sellId).quantity -= sellQuan;
+                    Console.WriteLine($"Теперь на складе {sell}");
+                    if (sell == 0) products.Find(n => n.id == sellId).have = false;
+                }
             }
         }
         static void SearchProduct()
@@ -161,7 +184,14 @@ namespace ISIP523_Ilyamakov
                     Console.WriteLine("Введи id для поиска: ");
                     int idSearch = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Результат: ");
-                    products.Find(n => n.id == idSearch).PrintInfo();
+                    try
+                    {
+                        products.Find(n => n.id == idSearch).PrintInfo();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Нет товара с таким ID");
+                    }
                     break;
                 case 2:
                     Console.WriteLine("Введи строку для поиска: ");
