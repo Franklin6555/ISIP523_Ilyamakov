@@ -25,16 +25,34 @@ namespace ISIP523_Ilyamakov
         public Product(int id, string name, double price, int quantity, int categoryNum)
         {
             this.id = id;
+            if (name == null)
+            {
+                Console.WriteLine($"Имя не может быть пустым \n Назначено имя 'Товар {id}'");
+                this.name = "Товар " + Convert.ToString(id);
+            }
             this.name = name;
-            this.price = price;
-            this.quantity = quantity;
-            if (quantity > 0) this.have = true;
-            else have = false;
+
+            if (price < 0)
+            {
+                Console.WriteLine("Цена не может быть отрицательной \nНазначена цена 0");
+                this.price = 0;
+            }
+            else this.price = price;
+            
+            if (quantity < 0)
+            {
+                Console.WriteLine("Кол-во не можеет быть отрийательной \n Назначено кол-во 0");
+                this.quantity = 0;
+            }
+            else this.quantity = quantity;
+            
+            if (quantity == 0) this.have = false;
+            else have = true;
 
             if (categoryNum < 5) this.category = (Categories)categoryNum;
             else
             {
-                Console.WriteLine("Неизветсная категория \nУстановлена категория 'Другое'");
+                Console.WriteLine("Неизветсная категория \nНазначенa категория 'Другое'");
                 this.category = (Categories)4;
             }
         }
@@ -92,9 +110,10 @@ namespace ISIP523_Ilyamakov
                 string nm = Console.ReadLine();
                 Console.WriteLine("Цена:");
                 double p = Convert.ToDouble(Console.ReadLine());
+                if (p < 0) { Console.WriteLine("Цена не может быть отрицательной"); break; }
                 Console.WriteLine("Кол-во:");
                 int q = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("Категория (1 - Молочные, 2 - Консервированые, 3 - Хлебобулочные, 4 - другое");
+                Console.WriteLine("Категория (1 - Молочные, 2 - Консервированые, 3 - Хлебобулочные, 4 - другое)");
                 int c = Convert.ToInt32(Console.ReadLine());
                 products.Add(new Product(gid, nm, p, q, c));
             }
@@ -135,7 +154,7 @@ namespace ISIP523_Ilyamakov
                     Console.WriteLine("Введи id для поиска: ");
                     int idSearch = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Результат: ");
-                    Console.WriteLine(products.Find(n => n.id == idSearch));
+                    products.Find(n => n.id == idSearch).PrintInfo();
                     break;
                 case 2:
                     Console.WriteLine("Введи строку для поиска: ");
@@ -144,6 +163,14 @@ namespace ISIP523_Ilyamakov
                     for (int i = 0; i < products.Count; i++)
                     {
                         if (products[i].name.Contains(nameSearch)) products[i].PrintInfo();
+                    }
+                    break;
+                case 3:
+                    Console.WriteLine("Введите категорию (1 - Молочные, 2 - Консервированые, 3 - Хлебобулочные, 4 - другое): ");
+                    int categorySearch = Convert.ToInt32(Console.ReadLine());
+                    for (int i = 0; i < products.Count; i++)
+                    {
+                        if (products[i].category == (Categories)categorySearch) products[i].PrintInfo();
                     }
                     break;
             }
