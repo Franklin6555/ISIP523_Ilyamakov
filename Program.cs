@@ -134,6 +134,7 @@ namespace ISIP523_Ilyamakov
             int orderQuan = Convert.ToInt32(Console.ReadLine());
             int order = products.Find(n => n.id == orderId).quantity += orderQuan;
             Console.WriteLine($"Теперь на складе {order}");
+            if (order == 0) products.Find(n => n.id == orderId).have = true;
         }
         static void SellProduct()
         {
@@ -147,6 +148,7 @@ namespace ISIP523_Ilyamakov
             {
                 sell = products.Find(n => n.id == sellId).quantity -= sellQuan;
                 Console.WriteLine($"Теперь на складе {sell}");
+                if (sell == 0) products.Find(n => n.id == sellId).have = false;
             }
         }
         static void SearchProduct()
