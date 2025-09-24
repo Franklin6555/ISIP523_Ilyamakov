@@ -133,19 +133,15 @@ namespace ISIP523_Ilyamakov
             try
             {
                 int order = products.Find(n => n.id == orderId).quantity;
-            }
-            catch
-            {
-                Console.WriteLine("Нет товара с таким ID");
-            }
-            finally
-            {
-                int order = products.Find(n => n.id == orderId).quantity;
                 Console.WriteLine("Введите кол-во, которое нужно заказать");
                 int orderQuan = Convert.ToInt32(Console.ReadLine());
                 order = products.Find(n => n.id == orderId).quantity += orderQuan;
                 Console.WriteLine($"Теперь на складе {order}");
                 if (order != 0) products.Find(n => n.id == orderId).have = true;
+            }
+            catch
+            {
+                Console.WriteLine("Нет товара с таким ID");
             }
         }
         static void SellProduct()
@@ -153,14 +149,6 @@ namespace ISIP523_Ilyamakov
             Console.WriteLine("Введите ID товара");
             int sellId = Convert.ToInt32(Console.ReadLine());
             try
-            {
-                int sell = products.Find(n => n.id == sellId).quantity;
-            }
-            catch
-            {
-                Console.WriteLine("Нет товара с таким ID");
-            }
-            finally
             {
                 int sell = products.Find(n => n.id == sellId).quantity;
                 Console.WriteLine("Введите кол-во, которое нужно продать");
@@ -173,10 +161,14 @@ namespace ISIP523_Ilyamakov
                     if (sell == 0) products.Find(n => n.id == sellId).have = false;
                 }
             }
+            catch
+            {
+                Console.WriteLine("Нет товара с таким ID");
+            }
         }
         static void SearchProduct()
         {
-            Console.WriteLine("Выберете параметр поиска (1 - id; 2 - название; 3 - категория");
+            Console.WriteLine("Выберете параметр поиска (1 - id; 2 - название; 3 - категория)");
             int searchType = Convert.ToInt32(Console.ReadLine());
             switch (searchType)
             {
