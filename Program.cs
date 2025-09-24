@@ -143,8 +143,11 @@ namespace ISIP523_Ilyamakov
             Console.WriteLine("Введите кол-во, которое нужно продать");
             int sellQuan = Convert.ToInt32(Console.ReadLine());
             if (sell - sellQuan < 0) Console.WriteLine("Недостаточно товара на складе");
-            else sell = products.Find(n => n.id == sellId).quantity -= sellQuan;
-            Console.WriteLine($"Теперь на складе {sell}");
+            else
+            {
+                sell = products.Find(n => n.id == sellId).quantity -= sellQuan;
+                Console.WriteLine($"Теперь на складе {sell}");
+            }
         }
         static void SearchProduct()
         {
