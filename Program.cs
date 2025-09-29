@@ -14,21 +14,24 @@ namespace ISIP523_Ilyamakov
         public int id;
         public string name;
         public string text;
-        public string[] words;
         public List<string> statistics;
         public Dictionary<char, int> lettersStatics;
 
         public TextStatistic(string text, int id)
         {
+
+            List<char> vowels = new List<char>() { 'а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я' };
+            List<char> consonants = new List<char>() { 'а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я' };
+
             this.id = id;
             this.text = text;
-            this.statistics = new List<string>();
-            this.lettersStatics = new Dictionary<char, int>();
+            statistics = new List<string>();
+            lettersStatics = new Dictionary<char, int>();
 
-            this.words = text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] words = text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             statistics.Add("Кол-во слов: " + Convert.ToString(words.Length));
 
-            this.name = $"{words[0]} {words[1]} {words[2]}";
+            name = $"{words[0]} {words[1]} {words[2]}";
 
             string[] sentences = text.Split(new char[] { '.' });
             statistics.Add("Кол-во предложений: " + Convert.ToString(sentences.Length));
@@ -43,18 +46,20 @@ namespace ISIP523_Ilyamakov
             statistics.Add("Самое короткое слово: " + shortles);
             statistics.Add("Самое длинное слово: " + longest);
 
+            int vowelCount = 0;
+            int consonantCount = 0;
+
             string lowerText = text.ToLower();
             foreach(char letter in lowerText)
             {
-                if (lettersStatics.ContainsKey(letter))
-                {
-                    lettersStatics[letter]++;
-                }
-                else
-                {
-                    lettersStatics.Add(letter, 1);
-                }
+                if (lettersStatics.ContainsKey(letter)) lettersStatics[letter]++;
+                else lettersStatics.Add(letter, 1);
+
+                if (vowels.Contains(letter)) vowelCount++;
+                else if (letter >= 'б' && letter <= 'щ') consonantCount++;
             }
+            statistics.Add("Кол-во гласных: " + vowelCount);
+            statistics.Add("Кол-во согласных: " + consonantCount);
         }
     }
     internal class Program
@@ -72,7 +77,7 @@ namespace ISIP523_Ilyamakov
                 Console.WriteLine("------------------------------------");
                 Console.WriteLine("Выберите пункт меню:");
                 Console.WriteLine("1. Добавить новый текст");
-                Console.WriteLine("2. Вывести список тектов");
+                Console.WriteLine("2. Выбрать другой текст");
                 Console.WriteLine("0. Выход");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("------------------------------------");
@@ -110,6 +115,8 @@ namespace ISIP523_Ilyamakov
             {
                 Console.WriteLine(text.id + ". " + text.name);
             }
+            Console.WriteLine($"Введите id текста, котрый хотите выбрать (от 0 до {gid - 1})");
+            currentTextId = Convert.ToInt32(Console.ReadLine());
         }
     }
 }
