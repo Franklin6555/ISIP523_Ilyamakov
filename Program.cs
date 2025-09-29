@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,11 +34,11 @@ namespace ISIP523_Ilyamakov
 
             name = $"{words[0]} {words[1]} {words[2]}";
 
-            string[] sentences = text.Split(new char[] { '.' });
+            string[] sentences = text.Split(new char[] { '.', '!', '?'});
             statistics.Add("Кол-во предложений: " + Convert.ToString(sentences.Length));
 
-            string shortles = "";
-            string longest = "";
+            string shortles = words[0];
+            string longest = words[0];
             foreach (string word in words)
             {
                 if (word.Length > longest.Length) longest = word;
@@ -52,14 +53,31 @@ namespace ISIP523_Ilyamakov
             string lowerText = text.ToLower();
             foreach(char letter in lowerText)
             {
-                if (lettersStatics.ContainsKey(letter)) lettersStatics[letter]++;
-                else lettersStatics.Add(letter, 1);
+                if ((letter >= 'а' && letter <= 'я') || letter == 'ё')
+                {
+                    if (lettersStatics.ContainsKey(letter)) lettersStatics[letter]++;
+                    else lettersStatics.Add(letter, 1);
 
-                if (vowels.Contains(letter)) vowelCount++;
-                else if (letter >= 'б' && letter <= 'щ') consonantCount++;
+                    if (vowels.Contains(letter)) vowelCount++;
+                    else consonantCount++;
+                }
             }
             statistics.Add("Кол-во гласных: " + vowelCount);
             statistics.Add("Кол-во согласных: " + consonantCount);
+        }
+
+        public void PrintStatistics()
+        {
+            foreach(string stat in statistics)
+            {
+                Console.WriteLine(stat);
+            }
+            Console.WriteLine("------------------------------------");
+            Console.WriteLine("Статистика по буквам:");
+            foreach (var letterStat in lettersStatics)
+            {
+                Console.WriteLine($"{letterStat.Key}: {letterStat.Value}");
+            }
         }
     }
     internal class Program
@@ -78,6 +96,7 @@ namespace ISIP523_Ilyamakov
                 Console.WriteLine("Выберите пункт меню:");
                 Console.WriteLine("1. Добавить новый текст");
                 Console.WriteLine("2. Выбрать другой текст");
+                Console.WriteLine("3. Статистика по текушему тексту");
                 Console.WriteLine("0. Выход");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("------------------------------------");
@@ -86,6 +105,7 @@ namespace ISIP523_Ilyamakov
                     case 0: inMenu = false; break;
                     case 1: AddText(); break;
                     case 2: TextList(); break;
+                    case 3: texts.Find(n => n.id == currentTextId).PrintStatistics(); break;
                 }
             }
         }
@@ -115,7 +135,7 @@ namespace ISIP523_Ilyamakov
             {
                 Console.WriteLine(text.id + ". " + text.name);
             }
-            Console.WriteLine($"Введите id текста, котрый хотите выбрать (от 0 до {gid - 1})");
+            Console.WriteLine($"Введите id текста, котрый хотите выбрать (от 1 до {gid - 1})");
             currentTextId = Convert.ToInt32(Console.ReadLine());
         }
     }
