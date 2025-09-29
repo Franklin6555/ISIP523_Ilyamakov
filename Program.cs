@@ -13,25 +13,31 @@ namespace ISIP523_Ilyamakov
         static void Main(string[] args)
         {
             bool inputCheck = false;
+            Console.WriteLine("Введите текст (минимум 100 символов)");
+            Console.WriteLine("------------------------------------");
+            string text = Console.ReadLine();
             while (!inputCheck) 
             {
-                Console.WriteLine("Введите текст (минимум 100 символов)");
-                Console.WriteLine("------------------------------------");
-                string text = Console.ReadLine();
                 if (text.Length > 100) inputCheck = true;
                 else Console.WriteLine("МИНИМУМ 100 СИМВОЛОВ");
                 Console.WriteLine("------------------------------------");
             }
+
+            List<string> statistics = new List<string>();
+
+            string[] words = text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string wordsCount = "Кол-во слов: " + Convert.ToString(words.Length);
+            statistics.Add(wordsCount);
+
+            string[] sentences = text.Split(new char[] { '.' });
+            string sentencesCount = "Кол-во предложений: " + Convert.ToString(sentences.Length);
+            statistics.Add(sentencesCount);
+
             bool inMenu = true;
             while (inMenu)
             {
                 Console.WriteLine("------------------------------------");
                 Console.WriteLine("Выберите пункт меню:");
-                Console.WriteLine("1. Вывод данных");
-                Console.WriteLine("2. Статистика");
-                Console.WriteLine("3. Сортировка по убыванию цены");
-                Console.WriteLine("4. Конвертация валюты");
-                Console.WriteLine("5. Поиск по названию");
                 Console.WriteLine("0. Выход");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("------------------------------------");
