@@ -2,26 +2,25 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace ISIP523_Ilyamakov
 {
-    class Text
+    class TextStatistic
     {
         public string text;
         public string[] words;
         public List<string> statistics;
-        public List<char> letters;
-        public List<int> lettersStatics;
+        public Dictionary<char, int> lettersStatics;
 
-        public Text(string text)
+        public TextStatistic(string text)
         {
             this.text = text;
             this.statistics = new List<string>();
-            this.letters = new List<char>();
-            this.lettersStatics = new List<int>();
+            this.lettersStatics = new Dictionary<char, int>();
 
             this.words = text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             statistics.Add("Кол-во слов: " + Convert.ToString(words.Length));
@@ -38,10 +37,24 @@ namespace ISIP523_Ilyamakov
             }
             statistics.Add("Самое короткое слово: " + shortles);
             statistics.Add("Самое длинное слово: " + longest);
+
+            string lowerText = text.ToLower();
+            foreach(char letter in lowerText)
+            {
+                if (lettersStatics.ContainsKey(letter))
+                {
+                    lettersStatics[letter]++;
+                }
+                else
+                {
+                    lettersStatics.Add(letter, 1);
+                }
+            }
         }
     }
     internal class Program
     {
+        static List<TextStatistic> texts = new List<TextStatistic>();
         static void Main(string[] args)
         {
             bool inputCheck = false;
@@ -54,7 +67,7 @@ namespace ISIP523_Ilyamakov
                 else Console.WriteLine("МИНИМУМ 100 СИМВОЛОВ");
                 Console.WriteLine("------------------------------------");
             }
-
+            texts.Add(new TextStatistic(text));
 
             bool inMenu = true;
             while (inMenu)
