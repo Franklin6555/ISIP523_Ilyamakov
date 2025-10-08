@@ -55,6 +55,11 @@ namespace ISIP523_Ilyamakov
                 this.ganre = (Ganre)4;
             }
         }
+        public void PrintInfo()
+        {
+            Console.WriteLine($"ID: {id} \nНазвание: {name} \nАвтор: {author} \nГод: {year} \n:Жанр: {ganre}\nЦена: {price}");
+            Console.WriteLine("------------------------------------");
+        }
     }
 
     internal class Program
