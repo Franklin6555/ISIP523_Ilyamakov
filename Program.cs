@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ISIP523_Ilyamakov
@@ -68,7 +69,43 @@ namespace ISIP523_Ilyamakov
         static List<Book> books = new List<Book>();
         static void Main(string[] args)
         {
-            
+            bool in_menu = true;
+
+            while (in_menu)
+            {
+                Console.WriteLine("------------------------------------");
+                Console.WriteLine("Выберите пункт меню:");
+                Console.WriteLine("1. Добавить книгу");
+                Console.WriteLine("2. Удалить книгу по ID");
+                Console.WriteLine("3. Найти книги");
+                Console.WriteLine("4. Отсортировать книги");
+                Console.WriteLine("5. Вывести самую дорогую и самую дешёвую книгу ");
+                Console.WriteLine("0. Вывести кол-во книг у каждого автора");
+                Console.WriteLine("------------------------------------");
+                int choice = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("------------------------------------");
+                switch (choice)
+                {
+                    case 0: in_menu = false; break;
+                    case 1: AddBook(); break;
+                }
+            }
+        }
+        static void AddBook()
+        {
+            gid++;
+            Console.WriteLine("Название:");
+            string nm = Console.ReadLine();
+            Console.WriteLine("Название:");
+            string au = Console.ReadLine();
+            Console.WriteLine("Жанр (1 - Фентези, 2 - Детектив, 3 - Антиутопия, 4 - Другое)");
+            int gn = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Год:");
+            int y = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Цена:");
+            double p = Convert.ToDouble(Console.ReadLine());
+            books.Add(new Book(gid, nm, au, gn, y, p));
+            Console.WriteLine("------------------------------------");
         }
     }
 }
