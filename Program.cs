@@ -88,6 +88,7 @@ namespace ISIP523_Ilyamakov
                 {
                     case 0: in_menu = false; break;
                     case 1: AddBook(); break;
+                    case 2: DelBook(); break;
                 }
             }
         }
@@ -106,6 +107,12 @@ namespace ISIP523_Ilyamakov
             double p = Convert.ToDouble(Console.ReadLine());
             books.Add(new Book(gid, nm, au, gn, y, p));
             Console.WriteLine("------------------------------------");
+        }
+        static void DelBook()
+        {
+            Console.WriteLine("Введите ID книги которую необходимо удалить");
+            int delId = Convert.ToInt32(Console.ReadLine());
+            books.RemoveAll(n => n.id == delId);
         }
     }
 }
