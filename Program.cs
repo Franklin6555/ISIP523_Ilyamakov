@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -89,7 +90,8 @@ namespace ISIP523_Ilyamakov
                     case 0: in_menu = false; break;
                     case 1: AddBook(); break;
                     case 2: DelBook(); break;
-                    case 3: SearchProduct(); break;
+                    case 3: SearchBook(); break;
+                    case 4: SortBook(); break;
                 }
             }
         }
@@ -122,7 +124,7 @@ namespace ISIP523_Ilyamakov
                 b.PrintInfo();
             }
         }
-        static void SearchProduct()
+        static void SearchBook()
         {
             Console.WriteLine("Выберете параметр поиска (1 - id; 2 - название; 3 - Жанр; 4 - Автор; 5 - Год; 6 - Цена)");
             int searchType = Convert.ToInt32(Console.ReadLine());
@@ -191,5 +193,35 @@ namespace ISIP523_Ilyamakov
                     break;
             }
         }
+        static void SortBook()
+        {
+            Console.WriteLine("Выберете вид сортировки: ");
+            Console.WriteLine("1 - Название (Возрастание)");
+            Console.WriteLine("2 - Цена (Возрастание)");
+            Console.WriteLine("3 - Название (Убывание)");
+            Console.WriteLine("4 - Цена (Убывание)");
+            int sortType = Convert.ToInt32(Console.ReadLine());
+
+            switch (sortType)
+            {
+                case 1:
+                    List<Book> bookSortedName1 = (List<Book>)books.OrderBy(b => b.name);
+                    PrintAllBooks(bookSortedName1);
+                    break;
+                case 2:
+                    List<Book> bookSortedYear1 = (List<Book>)books.OrderBy(b => b.year);
+                    PrintAllBooks(bookSortedYear1);
+                    break;
+                case 3:
+                    List<Book> bookSortedName2 = (List<Book>)books.OrderByDescending(b => b.name);
+                    PrintAllBooks(bookSortedName2);
+                    break;
+                case 4:
+                    List<Book> bookSortedYear2 = (List<Book>)books.OrderByDescending(b => b.year);
+                    PrintAllBooks(bookSortedYear2);
+                    break;
+            }
+        }
+        
     }
 }
