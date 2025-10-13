@@ -115,6 +115,13 @@ namespace ISIP523_Ilyamakov
             int delId = Convert.ToInt32(Console.ReadLine());
             books.RemoveAll(n => n.id == delId);
         }
+        static void PrintAllBooks(List<Book> BookList)
+        {
+            foreach (var b in BookList)
+            {
+                b.PrintInfo();
+            }
+        }
         static void SearchProduct()
         {
             Console.WriteLine("Выберете параметр поиска (1 - id; 2 - название; 3 - Жанр; 4 - Автор; 5 - Год; 6 - Цена)");
@@ -137,42 +144,38 @@ namespace ISIP523_Ilyamakov
                 case 2:
                     Console.WriteLine("Введи строку для поиска: ");
                     string nameSearch = Console.ReadLine();
-                    var bookSearchName = books.Where(b => b.name.Contains(nameSearch));
+
+                    List<Book> bookSearchName = (List<Book>)books.Where(b => b.name.Contains(nameSearch));
+
                     Console.WriteLine("Результат: ");
-                    foreach (var b in bookSearchName)
-                    {
-                        b.PrintInfo();
-                    }
+                    PrintAllBooks(bookSearchName);
                     break;
                 case 3:
                     Console.WriteLine("Введите категорию (1 - Фентези, 2 - Детектив, 3 - Антиутопия, 4 - Другое):");
                     int ganreSearch = Convert.ToInt32(Console.ReadLine());
-                    var bookSearchGanre = books.Where(b => b.ganre == (Ganre)ganreSearch);
+
+                    List<Book> bookSearchGanre = (List<Book>)books.Where(b => b.ganre == (Ganre)ganreSearch);
+
                     Console.WriteLine("Результат: ");
-                    foreach (var b in bookSearchGanre)
-                    {
-                        b.PrintInfo();
-                    }
+                    PrintAllBooks(bookSearchGanre);
                     break;
                 case 4:
                     Console.WriteLine("Введи строку для поиска: ");
                     string authorSearch = Console.ReadLine();
-                    var bookSearchAuthor = books.Where(b => b.author.Contains(authorSearch));
+
+                    List<Book> bookSearchAuthor = (List<Book>)books.Where(b => b.author.Contains(authorSearch));
+
                     Console.WriteLine("Результат: ");
-                    foreach (var b in bookSearchAuthor)
-                    {
-                        b.PrintInfo();
-                    }
+                    PrintAllBooks(bookSearchAuthor);
                     break;
                 case 5:
                     Console.WriteLine("Введи год: ");
                     int yearSearch = Convert.ToInt32(Console.ReadLine());
-                    var bookSearchYear = books.Where(b => b.year == yearSearch);
+
+                    List<Book> bookSearchYear = (List<Book>)books.Where(b => b.year == yearSearch);
+
                     Console.WriteLine("Результат: ");
-                    foreach (var b in bookSearchYear)
-                    {
-                        b.PrintInfo();
-                    }
+                    PrintAllBooks(bookSearchYear);
                     break;
                 case 6:
                     Console.WriteLine("Введи минимальную цену:");
@@ -180,14 +183,11 @@ namespace ISIP523_Ilyamakov
 
                     Console.WriteLine("Введи максимальную цену:");
                     double maxPrice = Convert.ToDouble(Console.ReadLine());
-                    
-                    var bookSearchPrice = books.Where(b => b.price <= minPrice && b.price <= maxPrice).OrderBy(b => b.price);
+
+                    List<Book> bookSearchPrice = (List<Book>)books.Where(b => b.price <= minPrice && b.price <= maxPrice).OrderBy(b => b.price);
 
                     Console.WriteLine("Результат: ");
-                    foreach (var b in bookSearchPrice)
-                    {
-                        b.PrintInfo();
-                    }
+                    PrintAllBooks(bookSearchPrice);
                     break;
             }
         }
