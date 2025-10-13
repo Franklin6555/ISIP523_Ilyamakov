@@ -81,7 +81,8 @@ namespace ISIP523_Ilyamakov
                 Console.WriteLine("3. Найти книги");
                 Console.WriteLine("4. Отсортировать книги");
                 Console.WriteLine("5. Вывести самую дорогую и самую дешёвую книгу ");
-                Console.WriteLine("0. Вывести кол-во книг у каждого автора");
+                Console.WriteLine("6. Вывести кол-во книг у каждого автора");
+                Console.WriteLine("0. Выход");
                 Console.WriteLine("------------------------------------");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("------------------------------------");
@@ -92,6 +93,7 @@ namespace ISIP523_Ilyamakov
                     case 2: DelBook(); break;
                     case 3: SearchBook(); break;
                     case 4: SortBook(); break;
+                    case 5: MinMaxBook(); break;
                 }
             }
         }
@@ -222,6 +224,12 @@ namespace ISIP523_Ilyamakov
                     break;
             }
         }
-        
+        static void MinMaxBook()
+        {
+            Console.WriteLine("Самая дешёвая книга:");
+            books.Find(b => b.price == books.Min(x => x.price)).PrintInfo();
+            Console.WriteLine("Самая дорогая книга:");
+            books.Find(b => b.price == books.Max(x => x.price)).PrintInfo();
+        }
     }
 }
