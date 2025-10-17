@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -94,6 +95,7 @@ namespace ISIP523_Ilyamakov
                     case 3: SearchBook(); break;
                     case 4: SortBook(); break;
                     case 5: MinMaxBook(); break;
+                    case 6: GroupingAuthor(); break;
                 }
             }
         }
@@ -230,6 +232,22 @@ namespace ISIP523_Ilyamakov
             books.Find(b => b.price == books.Min(x => x.price)).PrintInfo();
             Console.WriteLine("Самая дорогая книга:");
             books.Find(b => b.price == books.Max(x => x.price)).PrintInfo();
+        }
+        static void GroupingAuthor()
+        {
+            var booksByAuthor = books
+            .GroupBy(b => b.author)
+            .Select(group => new
+            {
+                Author = group.Key,
+                BookCount = group.Count()
+            });
+
+            foreach (var authorGroup in booksByAuthor)
+            {
+                Console.WriteLine($"Автор: {authorGroup.Author}, Количество книг: {authorGroup.BookCount}");
+            }
+
         }
     }
 }
